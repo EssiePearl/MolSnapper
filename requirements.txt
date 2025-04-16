@@ -1,0 +1,11 @@
+# Core PyTorch packages
+torch
+torchvision
+torchaudio
+
+# PyG and required extensions
+torch-scatter
+torch-sparse
+torch-cluster
+torch-spline-conv
+torch-geometric
