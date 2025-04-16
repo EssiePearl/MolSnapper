@@ -22,7 +22,7 @@ def get_dataset(config, *args, **kwargs):
         raise NotImplementedError('Unknown dataset: %s' % name)
     
     if 'split' in config:
-        split_by_molid = torch.load(os.path.join(root, config.split))
+        split_by_molid = torch.load(os.path.join(root, config.split),weights_only=False)
         split = {
             k: [dataset.molid2idx[mol_id] for mol_id in mol_id_list if mol_id in dataset.molid2idx]
             for k, mol_id_list in split_by_molid.items()
@@ -53,7 +53,7 @@ class Drug3DDataset(Dataset):
         if (not os.path.exists(self.processed_path)) or (not os.path.exists(self.molid2idx_path)):
             self._process()
             self._precompute_molid2idx()
-        self.molid2idx = torch.load(self.molid2idx_path)
+        self.molid2idx = torch.load(self.molid2idx_path,weights_only=False)
 
     def _connect_db(self):
         """

@@ -65,7 +65,7 @@ if __name__ == '__main__':
     config_name = os.path.basename(args.config)[:os.path.basename(args.config).rfind('.')]
     seed_all(config.sample.seed + np.sum([ord(s) for s in args.outdir]))
     # load ckpt and train config
-    ckpt = torch.load(config.model.checkpoint,map_location=args.device)
+    ckpt = torch.load(config.model.checkpoint,map_location=args.device,weights_only=False)
     train_config = ckpt['config']
 
     # # Logging
@@ -104,7 +104,7 @@ if __name__ == '__main__':
     # # Bond predictor adn guidance
     if 'bond_predictor' in config:
         logger.info('Building bond predictor...')
-        ckpt_bond = torch.load(config.bond_predictor, map_location=args.device)
+        ckpt_bond = torch.load(config.bond_predictor, map_location=args.device,weights_only=False)
         bond_predictor = BondPredictor(ckpt_bond['config']['model'],
                 featurizer.num_node_types,
                 featurizer.num_edge_types-1 # note: bond_predictor not use edge mask
