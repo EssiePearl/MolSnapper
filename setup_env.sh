@@ -9,11 +9,13 @@ if [[ "$CONDA_DEFAULT_ENV" != "MolSnapper" ]]; then
     exit 1
 fi
 
+pip install lmdb
+
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 
 pip install torch-scatter torch-sparse torch-cluster torch-spline-conv torch-geometric \
 -f https://data.pyg.org/whl/torch-2.6.0+cu124.html
 
-# optional:
+# optional generation of lockfile:
 # conda install -y conda-lock
 # conda-lock lock --conda MolSnapper --file env.yml
